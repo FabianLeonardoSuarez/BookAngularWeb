@@ -14,11 +14,9 @@
       </ul>
       <div class="filters d-flex align-items-center">
         <span>Filter by Authors</span>
-        <select class="form-select" aria-label="Default select example">
-  <option selected>Select an Author ...</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+<select class="form-select" aria-label="Default select example">
+    <option selected>Select an Author ...</option>
+    <option *ngFor="let author of apiService.authorList" [value]="author.id">{{author.firstName}}</option>
 </select>
         <span>Filter by Date</span>
       <div class="input-group date" id="datepicker">
@@ -38,14 +36,19 @@
         <table class="table table-striped table-hover">
   <thead>
     <tr>
+        <th>Cover</th>
         <th *ngFor="let header of apiService.bookHeaders">{{header}}</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
+      <tr *ngFor="let row of apiService.bookList">
+          <td><img src="https://m.media-amazon.com/images/I/41xShlnTZTL._AC_UY218_.jpg" class="img-thumbnail"/></td>
+          <td *ngFor="let key of apiService.bookHeaders">
+              {{row[key].toString().length > 220 ? 
+                    row[key].toString().substring(0, 217) + "..." : 
+                    row[key].toString()}}
+          </td>
+      </tr>
   </tbody>
 </table>
     </div>
